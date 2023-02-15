@@ -27,7 +27,7 @@ public class CashRegister {
   List< String > ticket = new ArrayList< String >();
   
 	
-  public boolean add( String client, String item ) {
+  public boolean add( String item ) {
 	if (!offerings.containsKey( item ))
 	  return false;
 	// Could include some code to add a counter for items, as to show something like "2 Coffee medium  3.0 6.0"
@@ -76,7 +76,7 @@ public class CashRegister {
   public void printTicket( String client, String[] items ) {
 	createTicket( client );
     for (String item : items) {
-		add( client, expand( item ));		
+		add( expand( item ));
 	}
 	String[] ticket = prepareTicket( client );
 	for (String line : ticket) {
@@ -101,3 +101,4 @@ public class CashRegister {
 
 
 }
+
