@@ -28,18 +28,19 @@ public class CashRegister {
   
 	
   public boolean add( String item ) {
-	if (!offerings.containsKey( item ))
-	  return false;
-	// Could include some code to add a counter for items, as to show something like "2 Coffee medium  3.0 6.0"
-	DecimalFormat df = new DecimalFormat("0.00");
-	String line = df.format( offerings.get( item ));
-	total += offerings.get( item );	
-	line = item + emptyLine.substring(0, ticketWidth - item.length() - line.length() ) + line;
+    if (!offerings.containsKey( item ))
+      return false;
+     
+    // Could include some code to add a counter for items, as to show something like "2 Coffee medium  3.0 6.0"
+    DecimalFormat df = new DecimalFormat("0.00");
+    String line = df.format( offerings.get( item ));
+    total += offerings.get( item );	
+    line = item + emptyLine.substring(0, ticketWidth - item.length() - line.length() ) + line;
     ticket.add( line );	
 	
-	// Add item to store for client bought items, as to calculate bonuses
-	// ...	
-	return true;
+    // Add item to store for client bought items, as to calculate bonuses
+    // ...	
+    return true;
   }
   
   
@@ -47,58 +48,57 @@ public class CashRegister {
 	  
     // Calculate bonuses
 
-	// Add total
-	DecimalFormat df = new DecimalFormat("0.00");
-	String line = df.format( total );
-	line = "Total:" + emptyLine.substring(0, ticketWidth - "Total:".length() - line.length() ) + line;
-	ticket.add( "" );
+    // Add total
+    DecimalFormat df = new DecimalFormat("0.00");
+    String line = df.format( total );
+    line = "Total:" + emptyLine.substring(0, ticketWidth - "Total:".length() - line.length() ) + line;
+    ticket.add( "" );
     ticket.add( line );	
     return ticket.toArray( new String[ ticket.size() ] );
   }
   
   
   private String expand( String item ) {
-	// Do some magic here to expand simple codes to full fledged descriptions
-	// Simplifiy manual entries
-	// I.e. cs for Coffee Small, etc. 
+    // Do some magic here to expand simple codes to full fledged descriptions
+    // Simplifiy manual entries
+    // I.e. cs for Coffee Small, etc. 
     return item;
   }
 
 
   void createTicket( String client ) {
-	total = 0;
+    total = 0;
     ticket.clear();
-	ticket.add( "Client: " + client );	  
-	ticket.add( "" );
+    ticket.add( "Client: " + client );	  
+    ticket.add( "" );
   }	  
 
   
   public void printTicket( String client, String[] items ) {
-	createTicket( client );
+    createTicket( client );
     for (String item : items) {
-		add( expand( item ));
-	}
-	String[] ticket = prepareTicket( client );
-	for (String line : ticket) {
-		System.out.println( line );
-	}
+      add( expand( item ));
+    }
+    String[] ticket = prepareTicket( client );
+    for (String line : ticket) {
+      System.out.println( line );
+    }
   }
 
 
   public static void main( String[] args ) {
-	  CashRegister cashRegister = new CashRegister();
-	  String[] items = {
-		"Coffee small",
-		"Coffee large",
-		"Extra milk",
-		"Coffee medium",
-		"Foamed milk",
-		"Special roast coffee",
-		"Bacon Roll"		
-	  };
-	  cashRegister.printTicket( "Client A", items );	  
+    CashRegister cashRegister = new CashRegister();
+    String[] items = {
+      "Coffee small",
+      "Coffee large",
+      "Extra milk",
+      "Coffee medium",
+      "Foamed milk",
+      "Special roast coffee",
+      "Bacon Roll"		
+    };
+    cashRegister.printTicket( "Client A", items );	  
   }
-
 
 }
 
